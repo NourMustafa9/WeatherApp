@@ -12,6 +12,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WeatherInfoDetailsViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UILabel *disclaimerLbl;
+@property (weak, nonatomic) IBOutlet UIView *exitView;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImg;
+@property (weak, nonatomic) IBOutlet UIImageView *weathInfo;
+@property (weak, nonatomic) IBOutlet UILabel *cityName;
+@property (weak, nonatomic) IBOutlet UIView *dataContainerView;
 //SomeClass* instance = [[SomeClass alloc]init];
 
 @end

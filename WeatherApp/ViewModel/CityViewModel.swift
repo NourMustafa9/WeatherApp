@@ -135,7 +135,7 @@ class CityViewModel: NSObject {
         let managedContext = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "WeatherInfo", in: managedContext)!
         let city = NSManagedObject(entity: entity, insertInto: managedContext)
-        city.setValuesForKeys(["name" : weatherInfo.name, "humidity" : weatherInfo.humidity , "speed" : weatherInfo.speed, "temp" : weatherInfo.temp , "weatherDescription" : weatherInfo.weatherDescription, "iconUrl" : weatherInfo.iconUrl])
+        city.setValuesForKeys(["name" : weatherInfo.name, "humidity" : weatherInfo.humidity , "speed" : weatherInfo.speed, "temp" : weatherInfo.temp , "weatherDescription" : weatherInfo.weatherDescription, "iconUrl" : weatherInfo.iconUrl,"requestTime" : Date()])
         //        city.seto
 
         do {

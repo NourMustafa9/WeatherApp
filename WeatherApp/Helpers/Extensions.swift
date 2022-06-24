@@ -22,8 +22,9 @@ extension UITableView{
         self.backgroundView = backgroundView
     }
 }
-extension UIView{
-    func setViewGradientBackground(topColor : UIColor,bottomColor : UIColor) {
+@objc
+ extension UIView{
+   @objc func setViewGradientBackground(topColor : UIColor,bottomColor : UIColor) {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.bounds
         gradientLayer.colors = [topColor.cgColor,bottomColor.cgColor]
