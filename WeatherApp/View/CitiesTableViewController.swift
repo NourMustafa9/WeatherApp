@@ -52,7 +52,7 @@ class CitiesTableViewController: UITableViewController {
     func initViewModel() {
         viewModel.reloadTableView = { [weak self] in
             DispatchQueue.main.async {
-                self?.tableView.reloadData()
+                self?.tableView.reloadData()////
             }
         }
     }
