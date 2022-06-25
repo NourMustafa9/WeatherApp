@@ -22,7 +22,11 @@ class CityViewModel: NSObject {
             reloadTableView?()
         }
     }
-
+    var citiesRecordsCellViewModels = [CitiesRecordViewModel]() {
+        didSet {
+            reloadTableView?()
+        }
+    }
     init(cityService: CityServiceProtocol = CityService()) {
         self.cityService = cityService
     }
@@ -37,13 +41,13 @@ class CityViewModel: NSObject {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "WeatherInfo")
 
         do {
-            var ccities = try managedContext.fetch(fetchRequest)
+            let ccities = try managedContext.fetch(fetchRequest)
             print(ccities)
             for i in ccities{
-                print(i.value(forKey: "humidity"))
-                print(i.value(forKey: "speed"))
-                print(i.value(forKey: "temp"))
-                print(i.value(forKey: "humidity"))
+                print(i.value(forKey: "requestTime"))
+                print(i.value(forKey: "name"))
+                print(i.value(forKey: "cityName"))
+
             }
         } catch {
             print(error)
@@ -105,6 +109,35 @@ class CityViewModel: NSObject {
     func getCellViewModel(at indexPath: IndexPath) -> CitiesCellViewModel {
         return self.citiesCellViewModels[indexPath.row]
     }
+    func getCellViewModelWithRow(at indexPathRow: Int) -> CitiesCellViewModel {
+        return self.citiesCellViewModels[indexPathRow]
+    }
+
+    func getCellRecordViewModel(at indexPath: IndexPath) -> CitiesRecordViewModel {
+        return self.citiesRecordsCellViewModels[indexPath.row]
+    }
+    func createCityRecordCellModel(record: WeatherInfo) -> CitiesRecordViewModel {
+        var dateRequest = ""
+        var temp = 0.0
+        var desrip = ""
+        var tempC = 0.0
+        if let date = record.value(forKey: "requestTime")  as? String{
+            dateRequest = date
+        }
+
+        if let temp_ = record.value(forKey: "temp")  as? Double{
+            temp = temp_
+            tempC = temp - 273.15
+        }
+        if let description = record.value(forKey: "weatherDescription")  as? String{
+            desrip = description
+        }
+
+
+        return CitiesRecordViewModel(date: dateRequest, des: desrip, temp: tempC)
+    }
+
+
     func save(name: String,completion: @escaping (Bool) -> Void) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -135,7 +168,7 @@ class CityViewModel: NSObject {
         let managedContext = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "WeatherInfo", in: managedContext)!
         let city = NSManagedObject(entity: entity, insertInto: managedContext)
-        city.setValuesForKeys(["name" : weatherInfo.name, "humidity" : weatherInfo.humidity , "speed" : weatherInfo.speed, "temp" : weatherInfo.temp , "weatherDescription" : weatherInfo.weatherDescription, "iconUrl" : weatherInfo.iconUrl,"requestTime" : Date()])
+        city.setValuesForKeys(["name" : weatherInfo.name, "humidity" : weatherInfo.humidity , "speed" : weatherInfo.speed, "temp" : weatherInfo.temp , "weatherDescription" : weatherInfo.weatherDescription, "iconUrl" : weatherInfo.iconUrl,"requestTime" : self.formateDate(date: Date()),"cityName" : weatherInfo.cityName])
         //        city.seto
 
         do {
@@ -146,6 +179,35 @@ class CityViewModel: NSObject {
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
+    }
+    func fetchWeatherInfoByName(cityName: String) {
+
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+        do {
+            let fetchRequest : NSFetchRequest<WeatherInfo> = WeatherInfo.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "cityName == %@", cityName)
+            let fetchedResults = try context.fetch(fetchRequest)
+
+            var vms = [CitiesRecordViewModel]()
+            for city in fetchedResults {
+
+                vms.append(createCityRecordCellModel(record: city))
+            }
+            self.citiesRecordsCellViewModels = vms
+            self.reloadTableView?()
+        }
+        catch {
+            print ("fetch task failed", error)
+        }
+
+    }
+
+    func formateDate(date: Date) -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d.MM.yyyy h:mm"
+        return formatter.string(from: Date())
+        
     }
 
     func getWeatherInfo(cityName : String,completion: @escaping (Bool,NSManagedObject) -> Void) {

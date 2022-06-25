@@ -69,14 +69,14 @@ class CityService: CityServiceProtocol {
 
                     }
 
-                    let cityWeather = CityWeatherInfo(name: cityName + ", \(countryName)", weatherDescription: descrip, speed: speed, temp: temp, humidity: humidity, iconUrl: icon)
+                    let cityWeather = CityWeatherInfo(name: cityName + ", \(countryName)", weatherDescription: descrip, speed: speed, temp: temp, humidity: humidity, iconUrl: icon, cityName: cityName)
                     completion(true,cityWeather,"success")
                 }
 
                 //                  print(data)
                 //completion(success)
             } else {
-                completion(false, nil, "Error: Employees GET Request failed")
+                completion(false, nil, "Error: Cities GET Request failed")
             }
         }
     }

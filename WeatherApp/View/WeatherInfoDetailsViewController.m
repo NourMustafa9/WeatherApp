@@ -4,20 +4,21 @@
 //
 //  Created by Nour_Madar on 24/06/2022.
 //
-#import <WeatherApp-Swift.h>
-#import "WeatherInfoDetailsViewController.h"
 
+#import "WeatherInfoDetailsViewController.h"
+#import <CoreData/CoreData.h>
 @interface WeatherInfoDetailsViewController ()
 
 
 @end
 
 @implementation WeatherInfoDetailsViewController
+//NSManagedObject *cityInfo;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpViews];
-
+    [self setUpWeatherInfo];
     // Do any additional setup after loading the view.
 }
 
@@ -52,9 +53,55 @@
     [  self.view bringSubviewToFront:_backgroundImg ];
     [  self.view bringSubviewToFront:_cityName ];
     [  self.view bringSubviewToFront:_disclaimerLbl ];
-    _disclaimerLbl.text =  @"Weather information for London received on 03.10.2019 - 11:28 ";
 
 
+
+
+}
+
+- (void)setUpWeatherInfo{
+    self.cityName.text = [_cityWeatherInfo valueForKey:@"name"];
+    self.weatherDEsc.text = [_cityWeatherInfo valueForKey:@"weatherDescription"];
+    NSString *humidity = [ _cityWeatherInfo valueForKey:@"humidity" ];
+    NSString *per = @" %";
+    NSString *humidityText = [NSString stringWithFormat:@"%@", humidity] ;
+    self.humidityLbl.text = [humidityText stringByAppendingString:per];
+
+
+    self.windSpeed.text = [NSString stringWithFormat:@"%@", [_cityWeatherInfo valueForKey:@"speed"]] ;
+
+    double tempInK = 0.0;
+    double tempInC = 0.0;
+    double factor = 273.15;
+    tempInK = [ [_cityWeatherInfo valueForKey:@"temp" ] doubleValue];
+    tempInC = tempInK - factor;
+    NSString *cel = @" °C";
+    NSString *tempInCel = [NSString stringWithFormat:@"%.2f", tempInC] ;
+    self.tempLabel.text =  [tempInCel stringByAppendingString:cel];
+
+
+    NSString *disclaimerConst = @"Weather information for ";
+    NSString *cityCountryNAme = [_cityWeatherInfo valueForKey:@"name"];
+    NSString *cityName = [cityCountryNAme componentsSeparatedByString:@","].firstObject;
+    NSString *requestTime = [_cityWeatherInfo valueForKey:@"requestTime"];
+    NSString *str1 = [disclaimerConst stringByAppendingString:cityName];
+    _disclaimerLbl.text =  [NSString stringWithFormat:@"%@ %@", str1, requestTime];
+
+
+
+    NSString *iconUrl = [_cityWeatherInfo valueForKey:@"iconUrl"];
+    printf("%s", [iconUrl UTF8String]);
+    dispatch_async(dispatch_get_global_queue(0,0), ^{
+        NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: iconUrl]];
+        if ( data == nil )
+            return;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // WARNING: is the cell still using the same data by this point??
+            printf("%s", [@"bvhbjbjbhj " UTF8String]);
+            self.weathInfo.image = [UIImage imageWithData: data];
+        });
+//        [data aut];
+    });
 
 }
 
