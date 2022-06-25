@@ -8,17 +8,19 @@
 import UIKit
 
 class CityRecordTableViewCell: UITableViewCell {
-
+    // MARK: - IBOutlet
     @IBOutlet weak var descRip: UILabel!
     @IBOutlet weak var requestTIme: UILabel!
+
+    // MARK: - Variables
     var cellViewModel: CitiesRecordViewModel? {
         didSet {
             requestTIme.text = cellViewModel?.date
-
             descRip.text = (cellViewModel?.des ?? "") + " , " + String(format: "%.2f",cellViewModel?.temp ?? 0.0) + "°C"
         }
 
     }
+    // MARK: - Views Funcs
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

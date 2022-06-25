@@ -30,7 +30,13 @@ class CityViewModel: NSObject {
     init(cityService: CityServiceProtocol = CityService()) {
         self.cityService = cityService
     }
-
+    /// This function returns CitiesWeatherInfo
+    ///
+    /// ```
+    ///
+    /// ```
+    ///
+    /// - Returns: no return.
     func retrieveCitiesWeatherInfo(){
 
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -42,13 +48,6 @@ class CityViewModel: NSObject {
 
         do {
             let ccities = try managedContext.fetch(fetchRequest)
-            print(ccities)
-            for i in ccities{
-                print(i.value(forKey: "requestTime"))
-                print(i.value(forKey: "name"))
-                print(i.value(forKey: "cityName"))
-
-            }
         } catch {
             print(error)
 
@@ -56,6 +55,15 @@ class CityViewModel: NSObject {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
+
+    /// This function returns cities names if found in database and  populate the citiesCellViewModels .
+    ///
+    /// ```
+    ///
+    /// ```
+    ///
+    /// - Returns: no return.
+
     func retrieveCities(){
 
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -86,6 +94,19 @@ class CityViewModel: NSObject {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
+
+
+
+    /// This function used to convert NSManaged objects of core data to Dictionary for easy use
+    ///
+    /// ```
+    ///
+    /// ```
+    ///
+    ///
+    /// - Parameter moArray: array to be converted.
+    /// - Returns: an array of Dictionary.
+
     func convertToDicArray(moArray: [NSManagedObject]) -> [[String: Any]] {
         var jsonArray: [[String: Any]] = []
         for item in moArray {
@@ -100,22 +121,60 @@ class CityViewModel: NSObject {
         }
         return jsonArray
     }
+
+    /// This function used to create city view model used in CitiesTableViewController
+    ///
+    ///
+    ///
+    /// - Parameter city cityName
+    /// - Returns: CitiesCellViewModel  used in CitiesTableViewController
     func createCellModel(city: CityName) -> CitiesCellViewModel {
 
         let name = city.name
 
         return CitiesCellViewModel(name: name)
     }
+
+    /// This function used to get Cell View Model  used in CitiesTableViewController using indexpath
+    ///
+    ///
+    ///
+    /// - Parameter indexPath IndexPath
+    /// - Returns: Cell View Model  used in CitiesTableViewController
     func getCellViewModel(at indexPath: IndexPath) -> CitiesCellViewModel {
         return self.citiesCellViewModels[indexPath.row]
     }
+
+    /// This function used to get specific Cell View Model  used in CitiesTableViewController using row
+    ///
+    ///
+    ///
+    /// - Parameter row :Int
+    /// - Returns: Cell View Model of specific row used in CitiesTableViewController
+
     func getCellViewModelWithRow(at indexPathRow: Int) -> CitiesCellViewModel {
         return self.citiesCellViewModels[indexPathRow]
     }
 
+    /// This function used to get Cell View Model  used in CityWeatherRecords using indexpath
+    ///
+    ///
+    ///
+    /// - Parameter indexPath : IndexPath
+    /// - Returns: Cell View Model  used in CityWeatherRecords
     func getCellRecordViewModel(at indexPath: IndexPath) -> CitiesRecordViewModel {
         return self.citiesRecordsCellViewModels[indexPath.row]
     }
+
+
+
+    /// This function used to create city record view model used in CityWeatherRecords which is retrieved from Core data
+    ///
+    ///
+    ///
+    /// - Parameter record: WeatherInfo
+    /// - Returns: CitiesRecordViewModel
+
     func createCityRecordCellModel(record: WeatherInfo) -> CitiesRecordViewModel {
         var dateRequest = ""
         var temp = 0.0
@@ -137,7 +196,16 @@ class CityViewModel: NSObject {
         return CitiesRecordViewModel(date: dateRequest, des: desrip, temp: tempC)
     }
 
+    /// This function saves city Names
+    ///
+    /// ```
+    ///
+    /// ```
+    ///
 
+    /// - Parameter name: city to be saved.
+    /// - Parameter completion: The callback called after saving..
+    /// - Returns: none.
     func save(name: String,completion: @escaping (Bool) -> Void) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -159,7 +227,16 @@ class CityViewModel: NSObject {
         }
     }
 
+    /// This function saves city weather records
+    ///
+    /// ```
+    ///
+    /// ```
+    ///
 
+    /// - Parameter weatherInfo: weatherInfo to be saved.
+    /// - Parameter completion: The callback called after saving.
+    /// - Returns: none.
     func saveWeatherInfo(weatherInfo : CityWeatherInfo,completion: @escaping (Bool,NSManagedObject) -> Void) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -180,6 +257,18 @@ class CityViewModel: NSObject {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
+
+
+    /// This function to fetch weather records by name
+    ///
+    /// ```
+    ///
+    /// ```
+    ///
+
+    /// - Parameter cityName: cityName to fetch with
+    /// - Parameter completion: The callback called after saving.
+    /// - Returns: none.
     func fetchWeatherInfoByName(cityName: String) {
 
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -203,6 +292,40 @@ class CityViewModel: NSObject {
 
     }
 
+
+    func fetchWeatherInfoByRecordDate(date: String,cityName:String,completion: @escaping (Bool,NSManagedObject) -> Void) {
+
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+        do {
+            let fetchRequest : NSFetchRequest<WeatherInfo> = WeatherInfo.fetchRequest()
+            let predicate1 = NSPredicate(format: "requestTime == %@", date)
+            let predicate2 = NSPredicate(format: "cityName == %@", cityName)
+            let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate1, predicate2])
+            fetchRequest.predicate = compoundPredicate
+            let fetchedResults = try context.fetch(fetchRequest)
+            if fetchedResults.count > 0 {
+                completion(true ,  fetchedResults.first  ?? WeatherInfo() )
+            }
+
+            self.reloadTableView?()
+        }
+        catch {
+            print ("fetch task failed", error)
+        }
+
+    }
+
+
+    /// This function to format Date
+    ///
+    /// ```
+    ///
+    /// ```
+    ///
+
+    /// - Parameter date: Date to formate
+    /// - Returns: formated date as String.
     func formateDate(date: Date) -> String{
         let formatter = DateFormatter()
         formatter.dateFormat = "d.MM.yyyy h:mm"
@@ -210,16 +333,32 @@ class CityViewModel: NSObject {
         
     }
 
+    /// This function to search for City Weather Info from Api and then save to WeatherInfo Entity
+    ///
+    /// ```
+    ///
+    /// ```
+    ///
+
+    /// - Parameter cityName: city To search with
+    ///- Parameter completion: The callback called after retrieing and saving.
+    /// - Returns: formated date as String.
+    
     func getWeatherInfo(cityName : String,completion: @escaping (Bool,NSManagedObject) -> Void) {
         print("getWeatherInfogetWeatherInfo")
         CityService.citySharedCervice.getWeatherInfo(cityName: cityName) { sucees, weatherInfo, error in
             //
-            if let cityWeatherInfo = weatherInfo{
-                self.saveWeatherInfo(weatherInfo: cityWeatherInfo, completion: {succes,weatherInfo in
-                    completion(true,weatherInfo)
+            if sucees{
+                if let cityWeatherInfo = weatherInfo{
+                    self.saveWeatherInfo(weatherInfo: cityWeatherInfo, completion: {succes,weatherInfo in
+                        completion(true,weatherInfo)
 
-                })
+                    })
+                }
+            }else{
+                completion(false,WeatherInfo())
             }
+
 
         }
     }

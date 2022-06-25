@@ -8,6 +8,13 @@
 import UIKit
 import SVProgressHUD
 import CoreData
+/// This is App rootClass with an array of city names saved in Core Data if didselected city will go to City Info Controller and if clicked on cell accessory will go to City Weather Info records.
+///
+/// ```
+///
+/// ```
+///
+
 
 
 class CitiesTableViewController: UITableViewController {
@@ -33,9 +40,11 @@ class CitiesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.retrieveCities()
-        viewModel.retrieveCitiesWeatherInfo()
     }
-
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
     // MARK: - Func
 
     func setUpViews(){
@@ -116,12 +125,28 @@ class CitiesTableViewController: UITableViewController {
     }
     func getCityWeatherInfo(city: String){
         SVProgressHUD.show()
-        self.viewModel.getWeatherInfo(cityName: city, completion: {
+        var cityName = city
+
+        self.viewModel.getWeatherInfo(cityName: cityName, completion: {
             [weak self] success,cityInfo  in
-            self?.cityWeatherInfo = cityInfo
-            self?.performSegue(withIdentifier: "goToDetails", sender: self)
             SVProgressHUD.dismiss()
+            if success{
+                self?.cityWeatherInfo = cityInfo
+                self?.performSegue(withIdentifier: "goToDetails", sender: self)
+            }else{
+                self?.showAlert(cityName: cityName)
+            }
+
+
         })
+    }
+
+    func showAlert(cityName: String){
+              let alert = UIAlertController(title: "Error", message: "Please type valid city", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Continue", style: UIAlertAction.Style.default, handler: {_ in 
+                  self.deleteFeed(cityName: cityName)
+              }))
+              self.present(alert, animated: true, completion: nil)
     }
     @objc func gotToRecords(_ sender: UIButton!) {
            let btnsendtag: UIButton = sender
@@ -131,7 +156,7 @@ class CitiesTableViewController: UITableViewController {
 
         let vc = storyboard.instantiateViewController(withIdentifier: "CityWeatherRecordViewController") as! CityWeatherRecordViewController
         vc.cityName = cellVM.name
-        self.present(vc, animated: true)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     // MARK: - Navigation
 
@@ -171,7 +196,36 @@ class CitiesTableViewController: UITableViewController {
         let name = viewModel.getCellViewModel(at: indexPath)
         self.getCityWeatherInfo(city: name.name)
     }
+    func deleteFeed(cityName:String)
+    {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
+        do {
+            let fetchRequest : NSFetchRequest<City> = City.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "name == %@", cityName)
+            let fetchedResults = try context.fetch(fetchRequest)
+            do
+              {
+
+
+                  for entity in fetchedResults {
+
+                      context.delete(entity)
+                  }
+                  self.viewModel.retrieveCities()
+                  self.tableView.reloadData()
+                  
+              }
+              catch _ {
+                  print("Could not delete")
+
+              }
+        }
+        catch _ {
+            print("Could not delete")
+
+        }
+    }
 }
 extension CitiesTableViewController:CityWeather{
     func GetCityWeather(_ city: String) {

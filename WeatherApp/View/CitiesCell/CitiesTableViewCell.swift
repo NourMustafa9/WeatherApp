@@ -9,7 +9,10 @@ import UIKit
 
 class CitiesTableViewCell: UITableViewCell {
 
+    // MARK: - IBOutlet
     @IBOutlet weak var cityName: UILabel!
+
+    // MARK: - Variables
     let cellAudioButton = UIButton(type: .custom)
     var cellViewModel: CitiesCellViewModel? {
         didSet {
@@ -17,6 +20,7 @@ class CitiesTableViewCell: UITableViewCell {
         }
 
     }
+    // MARK: - Views Funcs
     override func awakeFromNib() {
         super.awakeFromNib()
         initView()

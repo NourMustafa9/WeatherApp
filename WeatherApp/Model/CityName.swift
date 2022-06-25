@@ -6,6 +6,13 @@
 //
 
 import Foundation
+/// This Class is for City Name saved In Database
+///
+/// ```
+///
+/// ```
+///
+
 class CityName : Codable {
     var name: String = ""
 }

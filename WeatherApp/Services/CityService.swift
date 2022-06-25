@@ -17,9 +17,20 @@ protocol CityServiceProtocol {
 class CityService: CityServiceProtocol {
     static let citySharedCervice : CityService = CityService()
 
-    func getWeatherInfo(cityName : String, completion: @escaping (Bool, CityWeatherInfo?, String?) -> ()) {
+    /// This function to search for City Weather Info from Api and parse Json
+    ///
+    /// ```
+    ///
+    /// ```
+    ///
 
-        let url = Constants.domain + cityName + Constants.urlApiKey
+    /// - Parameter cityName: city To search with
+    ///- Parameter completion: The callback called after retrieing and parsing.
+    /// - Returns: none.
+
+    func getWeatherInfo(cityName : String, completion: @escaping (Bool, CityWeatherInfo?, String?) -> ()) {
+        var city = cityName.replacingOccurrences(of: " ", with: "%20")
+        let url = Constants.domain + city + Constants.urlApiKey
         HTTPRequestService().GET(url: url) { success, data in
             if success {
                 var descrip = ""

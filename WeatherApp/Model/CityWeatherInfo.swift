@@ -6,6 +6,14 @@
 //
 
 import Foundation
+
+/// This Class is for CityWeatherInfo retrieved from API
+///
+/// ```
+///
+/// ```
+///
+
 class CityWeatherInfo  {
     var name: String = ""
     var cityName: String = ""

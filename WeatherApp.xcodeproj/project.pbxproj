@@ -201,7 +201,6 @@
 				C746A2462864F87500BD5327 /* View */,
 				C746A2472864F87C00BD5327 /* ViewModel */,
 				C746A2152864F81800BD5327 /* AppDelegate.swift */,
-				C746A2192864F81800BD5327 /* ViewController.swift */,
 				C746A21B2864F81800BD5327 /* Main.storyboard */,
 				C746A21E2864F81A00BD5327 /* Assets.xcassets */,
 				C746A2202864F81A00BD5327 /* LaunchScreen.storyboard */,
@@ -240,12 +239,9 @@
 		C746A2462864F87500BD5327 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C746A2192864F81800BD5327 /* ViewController.swift */,
+				C7497DE0286743D700DF1638 /* Controllers */,
 				C7430DD6286501F7000A0B31 /* CitiesCell */,
-				C7430DD728650274000A0B31 /* CitiesTableViewController.swift */,
-				C790BF732865D80E00E9BB61 /* BottomSheetViewController.swift */,
-				C790BF7B28660ECB00E9BB61 /* WeatherInfoDetailsViewController.h */,
-				C790BF7C28660ECB00E9BB61 /* WeatherInfoDetailsViewController.m */,
-				C7497DD6286723B400DF1638 /* CityWeatherRecordViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -258,6 +254,18 @@
 				C7497DD828672CCD00DF1638 /* CitiesRecordViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C7497DE0286743D700DF1638 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C7430DD728650274000A0B31 /* CitiesTableViewController.swift */,
+				C790BF732865D80E00E9BB61 /* BottomSheetViewController.swift */,
+				C790BF7B28660ECB00E9BB61 /* WeatherInfoDetailsViewController.h */,
+				C790BF7C28660ECB00E9BB61 /* WeatherInfoDetailsViewController.m */,
+				C7497DD6286723B400DF1638 /* CityWeatherRecordViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		C7942E0C2865BD05006B2168 /* Services */ = {

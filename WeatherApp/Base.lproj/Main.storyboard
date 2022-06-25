@@ -277,7 +277,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zDr-b7-2qY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1443.4782608695652" y="-50.223214285714285"/>
+            <point key="canvasLocation" x="1738" y="-476"/>
         </scene>
         <!--Bottom Sheet View Controller-->
         <scene sceneID="0YX-Ho-tC6">
@@ -310,7 +310,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ILF-XO-wCZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2053.6231884057975" y="-97.098214285714278"/>
+            <point key="canvasLocation" x="787" y="617"/>
         </scene>
         <!--City Weather Record View Controller-->
         <scene sceneID="8j7-Ht-WBD">
@@ -321,14 +321,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xc4-Zh-4s0">
-                                <rect key="frame" x="0.0" y="44" width="414" height="53"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="90"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FDb-75-YEB">
-                                        <rect key="frame" x="-20" y="0.0" width="92" height="53"/>
+                                        <rect key="frame" x="-20" y="18.5" width="92" height="53"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MFo-dK-XR1">
-                                                <rect key="frame" x="20" y="0.0" width="92" height="53"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <rect key="frame" x="20" y="0.0" width="72" height="53"/>
+                                                <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="←">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -341,14 +341,14 @@
                                         <color key="backgroundColor" red="0.13725490200000001" green="0.53333333329999999" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="MFo-dK-XR1" firstAttribute="centerY" secondItem="FDb-75-YEB" secondAttribute="centerY" id="0mT-Ak-Ie8"/>
+                                            <constraint firstAttribute="trailing" secondItem="MFo-dK-XR1" secondAttribute="trailing" id="1Fr-10-iWs"/>
                                             <constraint firstAttribute="width" constant="92" id="8o7-dL-cbw"/>
-                                            <constraint firstItem="MFo-dK-XR1" firstAttribute="width" secondItem="FDb-75-YEB" secondAttribute="width" id="Sd6-mK-d4i"/>
                                             <constraint firstItem="MFo-dK-XR1" firstAttribute="height" secondItem="FDb-75-YEB" secondAttribute="height" id="hi3-Hu-9Io"/>
                                             <constraint firstAttribute="height" constant="53" id="zJt-CK-iOj"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="London Historical" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2bL-qJ-pGs">
-                                        <rect key="frame" x="150" y="6" width="114" height="41"/>
+                                        <rect key="frame" x="150" y="24.5" width="114" height="41"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="17"/>
                                         <color key="textColor" red="0.23921568627450979" green="0.27058823529411763" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -358,27 +358,27 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="2bL-qJ-pGs" secondAttribute="trailing" constant="150" id="54x-h1-bs1"/>
                                     <constraint firstItem="2bL-qJ-pGs" firstAttribute="leading" secondItem="xc4-Zh-4s0" secondAttribute="leading" constant="150" id="IVO-di-Cxc"/>
-                                    <constraint firstAttribute="height" constant="53" id="Qka-Ey-YUc"/>
+                                    <constraint firstAttribute="height" constant="90" id="Qka-Ey-YUc"/>
                                     <constraint firstItem="FDb-75-YEB" firstAttribute="leading" secondItem="xc4-Zh-4s0" secondAttribute="leading" constant="-20" id="V8i-Ux-rtz"/>
-                                    <constraint firstItem="FDb-75-YEB" firstAttribute="top" secondItem="xc4-Zh-4s0" secondAttribute="top" id="XPU-kl-SuH"/>
                                     <constraint firstItem="MFo-dK-XR1" firstAttribute="leading" secondItem="xc4-Zh-4s0" secondAttribute="leading" symbolic="YES" id="cpG-j4-Wxj"/>
+                                    <constraint firstItem="FDb-75-YEB" firstAttribute="centerY" secondItem="xc4-Zh-4s0" secondAttribute="centerY" id="iuO-og-Io1"/>
                                     <constraint firstItem="2bL-qJ-pGs" firstAttribute="centerY" secondItem="xc4-Zh-4s0" secondAttribute="centerY" id="oct-B5-m7H"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="UdV-cg-Rcd">
-                                <rect key="frame" x="0.0" y="97" width="414" height="765"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="kbD-5b-czY" id="5Cn-pi-olk"/>
-                                    <outlet property="delegate" destination="kbD-5b-czY" id="Gtz-ut-92A"/>
-                                </connections>
-                            </tableView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="rDz-2d-Cgy">
                                 <rect key="frame" x="0.0" y="624" width="414" height="238"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="238" id="tpA-0s-T0P"/>
                                 </constraints>
                             </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="UdV-cg-Rcd">
+                                <rect key="frame" x="0.0" y="134" width="414" height="728"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="kbD-5b-czY" id="5Cn-pi-olk"/>
+                                    <outlet property="delegate" destination="kbD-5b-czY" id="Gtz-ut-92A"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LJ4-sD-zm7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -399,6 +399,7 @@
                         <outlet property="backView" destination="FDb-75-YEB" id="Tdj-hj-Z2x"/>
                         <outlet property="cityRecords" destination="2bL-qJ-pGs" id="ooz-h7-S1g"/>
                         <outlet property="tableView" destination="UdV-cg-Rcd" id="R8Y-z0-9KC"/>
+                        <segue destination="PHl-vh-ysT" kind="presentation" identifier="goToRecordDetails" id="jlt-Re-6k5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yb2-fe-kXp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -439,6 +440,9 @@
             <point key="canvasLocation" x="72" y="-50"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="jlt-Re-6k5"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="Background" width="375" height="223"/>
         <image name="Button_modal" width="102" height="113"/>

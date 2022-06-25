@@ -14,14 +14,14 @@
 
 @implementation WeatherInfoDetailsViewController
 //NSManagedObject *cityInfo;
-
+#pragma mark - Views Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpViews];
     [self setUpWeatherInfo];
     // Do any additional setup after loading the view.
 }
-
+#pragma mark - Funcs
 - (void)setUpViews
 {
     _dataContainerView.layer.cornerRadius = 45;
@@ -63,19 +63,20 @@
     self.cityName.text = [_cityWeatherInfo valueForKey:@"name"];
     self.weatherDEsc.text = [_cityWeatherInfo valueForKey:@"weatherDescription"];
     NSString *humidity = [ _cityWeatherInfo valueForKey:@"humidity" ];
-    NSString *per = @" %";
+    NSString *per = @"%";
     NSString *humidityText = [NSString stringWithFormat:@"%@", humidity] ;
     self.humidityLbl.text = [humidityText stringByAppendingString:per];
 
+    NSString *speed = [NSString stringWithFormat:@"%@", [_cityWeatherInfo valueForKey:@"speed"]];
 
-    self.windSpeed.text = [NSString stringWithFormat:@"%@", [_cityWeatherInfo valueForKey:@"speed"]] ;
+    self.windSpeed.text = [speed stringByAppendingString:@" km/h"];
 
     double tempInK = 0.0;
     double tempInC = 0.0;
     double factor = 273.15;
     tempInK = [ [_cityWeatherInfo valueForKey:@"temp" ] doubleValue];
     tempInC = tempInK - factor;
-    NSString *cel = @" °C";
+    NSString *cel = @"° C";
     NSString *tempInCel = [NSString stringWithFormat:@"%.2f", tempInC] ;
     self.tempLabel.text =  [tempInCel stringByAppendingString:cel];
 
@@ -100,24 +101,24 @@
             printf("%s", [@"bvhbjbjbhj " UTF8String]);
             self.weathInfo.image = [UIImage imageWithData: data];
         });
-//        [data aut];
+        //        [data aut];
     });
 
 }
-
+#pragma mark - IBAction
 - (IBAction)dismissView:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*
-#pragma mark - Navigation
+ #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 
 @end

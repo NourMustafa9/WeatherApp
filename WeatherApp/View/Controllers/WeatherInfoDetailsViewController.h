@@ -10,7 +10,12 @@
 #import <CoreData/CoreData.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+/// This is City Weather Info details holding all details for slected city
+///
+/// ```
+///
+/// ```
+///
 @interface WeatherInfoDetailsViewController : UIViewController
 @property (nonatomic, strong) NSManagedObject *cityWeatherInfo;
 
@@ -24,8 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *tempLabel;
 @property (weak, nonatomic) IBOutlet UILabel *humidityLbl;
 @property (weak, nonatomic) IBOutlet UILabel *windSpeed;
-
-//SomeClass* instance = [[SomeClass alloc]init];
 
 @end
 
